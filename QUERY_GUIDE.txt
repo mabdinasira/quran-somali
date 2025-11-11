@@ -1,0 +1,299 @@
+================================================================
+QUR'AN QUERY TOOL - USER GUIDE
+================================================================
+
+The query_quran.py script allows you to easily extract specific
+parts of the Qur'an in various ways.
+
+================================================================
+BASIC USAGE
+================================================================
+
+python3 query_quran.py [QUERY] [OPTIONS]
+
+================================================================
+QUERY FORMATS
+================================================================
+
+1. GET ENTIRE SURAH (by number 1-114)
+   ----------------------------------
+   Format: python3 query_quran.py [SURAH_NUMBER]
+
+   Examples:
+   python3 query_quran.py 1        # Get Al-Fatihah
+   python3 query_quran.py 36       # Get Yaseen
+   python3 query_quran.py 112      # Get Al-Ikhlas
+
+
+2. GET SINGLE VERSE
+   ----------------
+   Format: python3 query_quran.py [SURAH]:[VERSE]
+
+   Examples:
+   python3 query_quran.py 2:255    # Ayat Al-Kursi
+   python3 query_quran.py 1:1      # First verse of Al-Fatihah
+   python3 query_quran.py 18:10    # Verse 10 of Al-Kahf
+
+
+3. GET RANGE OF VERSES (from same surah)
+   -------------------------------------
+   Format: python3 query_quran.py [SURAH]:[START]-[END]
+
+   Examples:
+   python3 query_quran.py 18:1-10     # First 10 verses of Al-Kahf
+   python3 query_quran.py 112:1-4     # All of Al-Ikhlas
+   python3 query_quran.py 55:1-78     # All of Ar-Rahman
+
+
+4. GET MULTIPLE SPECIFIC VERSES (use quotes!)
+   ------------------------------------------
+   Format: python3 query_quran.py "surah:verse,surah:verse,..."
+
+   Examples:
+   python3 query_quran.py "1:1,112:1,113:1,114:1"
+                          # First verse of last 4 surahs
+
+   python3 query_quran.py "2:255,36:1-3,112:1-4"
+                          # Ayat Al-Kursi + start of Yaseen + Al-Ikhlas
+
+   NOTE: Use QUOTES when using commas or ranges with commas!
+
+
+================================================================
+OUTPUT OPTIONS
+================================================================
+
+--help                Show full help message
+-o FILENAME           Save results to JSON file
+--arabic-only         Show only Arabic text
+--somali-only         Show only Somali translation
+--no-verse-numbers    Hide verse numbers in output
+
+Examples:
+python3 query_quran.py 36 -o yaseen.json
+python3 query_quran.py 1 --somali-only
+python3 query_quran.py 67:1-5 --arabic-only
+
+
+================================================================
+DETAILED EXAMPLES
+================================================================
+
+Example 1: Read Al-Fatihah
+---------------------------
+python3 query_quran.py 1
+
+Output:
+================================================================================
+SURAH 1: Al-Faatiha
+Total Verses: 7
+================================================================================
+
+[Verse 1]
+Arabic:  بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+Somali:  Ku Billaabasho Magaca Allaah, ee Naxariis guud...
+--------------------------------------------------------------------------------
+...
+
+
+Example 2: Get Ayat Al-Kursi
+-----------------------------
+python3 query_quran.py 2:255
+
+Output:
+================================================================================
+SURAH 2: Al-Baqara
+Verse 255
+================================================================================
+
+Arabic:  اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ...
+Somali:  Allaah! Ma jiro Ilaah (xaq lagu caabudo)...
+================================================================================
+
+
+Example 3: Save Surah Yaseen to file
+-------------------------------------
+python3 query_quran.py 36 -o yaseen.json
+
+This creates a JSON file with the complete surah that you can
+use in your applications.
+
+
+Example 4: Get multiple verses from different surahs
+-----------------------------------------------------
+python3 query_quran.py "1:1,2:255,112:1-4"
+
+Output:
+================================================================================
+MULTIPLE VERSES (6 total)
+================================================================================
+
+Surah 1: Al-Faatiha - Verse 1
+Arabic:  بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+Somali:  Ku Billaabasho Magaca Allaah...
+--------------------------------------------------------------------------------
+
+Surah 2: Al-Baqara - Verse 255
+Arabic:  اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ...
+Somali:  Allaah! Ma jiro Ilaah...
+--------------------------------------------------------------------------------
+
+Surah 112: Al-Ikhlaas - Verse 1
+Arabic:  قُلْ هُوَ اللَّهُ أَحَدٌ
+Somali:  Dheh: Isagu, Allaah waa Mid Keliya
+--------------------------------------------------------------------------------
+...
+
+
+Example 5: First 10 verses of Al-Kahf (Friday recitation)
+----------------------------------------------------------
+python3 query_quran.py 18:1-10
+
+
+Example 6: Last two surahs (Al-Falaq and An-Nas)
+-------------------------------------------------
+python3 query_quran.py 113
+python3 query_quran.py 114
+
+
+================================================================
+USING THE JSON OUTPUT IN YOUR PROGRAMS
+================================================================
+
+Python Example:
+---------------
+import json
+
+# Save a surah to file
+import subprocess
+subprocess.run(['python3', 'query_quran.py', '36', '-o', 'yaseen.json'])
+
+# Load and use it
+with open('yaseen.json', 'r', encoding='utf-8') as f:
+    yaseen = json.load(f)
+
+for verse in yaseen['verses']:
+    print(f"Verse {verse['verse_number']}")
+    print(f"Arabic: {verse['arabic_text']}")
+    print(f"Somali: {verse['somali_translation']}\n")
+
+
+JavaScript Example:
+-------------------
+const { execSync } = require('child_process');
+const fs = require('fs');
+
+// Save a verse to file
+execSync('python3 query_quran.py 2:255 -o ayat_kursi.json');
+
+// Load and use it
+const ayatKursi = JSON.parse(fs.readFileSync('ayat_kursi.json', 'utf8'));
+console.log(ayatKursi.verse.arabic_text);
+console.log(ayatKursi.verse.somali_translation);
+
+
+================================================================
+COMMON USE CASES
+================================================================
+
+1. Daily Recitation
+   ----------------
+   python3 query_quran.py 36          # Yaseen for Friday
+   python3 query_quran.py 18:1-10     # First 10 of Al-Kahf for Friday
+   python3 query_quran.py 67          # Al-Mulk before sleep
+
+
+2. Memorization
+   ------------
+   python3 query_quran.py 78          # Short surahs for memorization
+   python3 query_quran.py 112
+   python3 query_quran.py 113
+   python3 query_quran.py 114
+
+
+3. Study & Research
+   ----------------
+   python3 query_quran.py 2:1-5 -o study.json
+   python3 query_quran.py "2:255,3:18,59:22-24" -o allah_names.json
+
+
+4. Creating Custom Collections
+   ----------------------------
+   # Save different parts for an app
+   python3 query_quran.py 1 -o fatihah.json
+   python3 query_quran.py 2:255 -o ayat_kursi.json
+   python3 query_quran.py 112 -o ikhlas.json
+   python3 query_quran.py 113 -o falaq.json
+   python3 query_quran.py 114 -o nas.json
+
+
+================================================================
+TIPS & TRICKS
+================================================================
+
+1. Always use quotes for multiple verses:
+   ✓ python3 query_quran.py "1:1,2:255"
+   ✗ python3 query_quran.py 1:1,2:255
+
+2. Verse ranges must be in the same surah:
+   ✓ python3 query_quran.py 18:1-10
+   ✗ python3 query_quran.py 18:1-19:10  (crosses surahs)
+
+3. Save frequently used queries as shell aliases:
+   alias ayat-kursi="python3 ~/Desktop/quran_somali/query_quran.py 2:255"
+   alias yaseen="python3 ~/Desktop/quran_somali/query_quran.py 36"
+
+4. Combine with other tools:
+   # Count verses in Al-Baqara
+   python3 query_quran.py 2 | grep "Verse" | wc -l
+
+   # Search for word in output
+   python3 query_quran.py 36 | grep "Allaah"
+
+
+================================================================
+ERROR MESSAGES
+================================================================
+
+"ERROR: Surah number must be between 1 and 114"
+  → Check your surah number is valid
+
+"ERROR: Verse X not found in Surah Y"
+  → The verse number doesn't exist in that surah
+
+"ERROR: Invalid format"
+  → Check your query format (use : for verses, - for ranges)
+
+"ERROR: quran_somali_complete.json not found"
+  → Make sure you run the script from the quran_somali folder
+  → Or copy the JSON file to your current directory
+
+
+================================================================
+FULL HELP
+================================================================
+
+Run this for complete options:
+python3 query_quran.py --help
+
+
+================================================================
+QUICK REFERENCE
+================================================================
+
+Command                              What it does
+--------------------------------------------------------------------------------
+python3 query_quran.py 1             Get entire Surah 1
+python3 query_quran.py 2:255         Get single verse
+python3 query_quran.py 18:1-10       Get verse range
+python3 query_quran.py "1:1,2:255"   Get multiple verses (use quotes!)
+python3 query_quran.py 36 -o file    Save to JSON file
+python3 query_quran.py --help        Show full help
+
+
+================================================================
+Created: November 8, 2025
+Script: query_quran.py
+Dataset: quran_somali_complete.json
+Translation: Abdullah Hasan Jacob (Classic Somali)
+================================================================

@@ -1,0 +1,138 @@
+================================================================
+QUICK START GUIDE - Qur'an Somali Query Tool
+================================================================
+
+THREE TRANSLATIONS AVAILABLE!
+  jacob  = Abdullah Hasan Jacob (Classic) [DEFAULT]
+  abduh  = Mahmud Muhammad Abduh (Modern)
+  abdu   = Shaykh Mahmood Muhammad Abdu (Contemporary)
+
+================================================================
+BASIC COMMANDS (copy and paste):
+================================================================
+
+# Get entire surah (default/classic translation)
+python3 query_quran.py 1
+
+# Get entire surah with DIFFERENT translation
+python3 query_quran.py 1 -t abduh     # Modern
+python3 query_quran.py 1 -t abdu      # Contemporary
+
+# Get single verse (example: Ayat Al-Kursi)
+python3 query_quran.py 2:255
+
+# Get verse range (example: first 10 verses of Al-Kahf)
+python3 query_quran.py 18:1-10
+
+# Get multiple verses (USE QUOTES!)
+python3 query_quran.py "1:1,2:255,112:1-4"
+
+# Save to file
+python3 query_quran.py 36 -o yaseen.json
+
+# Save with specific translation
+python3 query_quran.py 36 -o yaseen_modern.json -t abduh
+
+# Show help
+python3 query_quran.py --help
+
+================================================================
+COMPARING TRANSLATIONS
+================================================================
+
+# Run same query with each translation to compare:
+python3 query_quran.py 1:1
+python3 query_quran.py 1:1 -t abduh
+python3 query_quran.py 1:1 -t abdu
+
+================================================================
+MOST COMMON SURAHS
+================================================================
+
+Al-Fatihah:
+  python3 query_quran.py 1
+  python3 query_quran.py 1 -t abduh        # Modern version
+  python3 query_quran.py 1 -t abdu         # Contemporary version
+
+Ayat Al-Kursi:
+  python3 query_quran.py 2:255
+
+First 10 of Al-Kahf (Friday):
+  python3 query_quran.py 18:1-10
+
+Yaseen (Friday):
+  python3 query_quran.py 36
+
+Al-Mulk (before sleep):
+  python3 query_quran.py 67
+
+Al-Ikhlas:
+  python3 query_quran.py 112
+
+Al-Falaq:
+  python3 query_quran.py 113
+
+An-Nas:
+  python3 query_quran.py 114
+
+Last three surahs together:
+  python3 query_quran.py "112:1-4,113:1-5,114:1-6"
+
+================================================================
+WHICH TRANSLATION TO USE?
+================================================================
+
+jacob (DEFAULT) - Abdullah Hasan Jacob
+  ✓ Most widely used
+  ✓ Classical/traditional style
+  ✓ Good for traditional study
+  ✓ Recommended for general use
+
+abduh - Mahmud Muhammad Abduh
+  ✓ Modern language
+  ✓ Contemporary vocabulary
+  ✓ Easier for young readers
+  ✓ Good for modern understanding
+
+abdu - Shaykh Mahmood Muhammad Abdu
+  ✓ Contemporary approach
+  ✓ Alternative modern style
+  ✓ Good for comparison
+  ✓ Different interpretation nuances
+
+TIP: Try all three and see which resonates with you!
+
+================================================================
+QUICK TIPS
+================================================================
+
+✓ Default translation is "jacob" (classic)
+✓ Add -t abduh or -t abdu to use other translations
+✓ Use quotes for multiple verses: "1:1,2:255"
+✓ Verse ranges must be in same surah: 18:1-10
+✓ Save to file with -o filename.json
+
+Run from the quran_somali folder:
+  cd ~/Desktop/quran_somali
+  python3 query_quran.py [QUERY]
+
+================================================================
+DIRECT FILE ACCESS
+================================================================
+
+All three JSON files are available:
+  - quran_somali_AbdullahHasanJacob.json (Classic)
+  - quran_somali_MahmudMuhammadAbduh.json (Modern)
+  - quran_somali_ShaykhMahmoodMuhammadAbdu.json (Contemporary)
+
+Use them directly in your programs!
+
+================================================================
+NEED MORE HELP?
+================================================================
+
+Full documentation: Read QUERY_GUIDE.txt
+Complete reference:  Read INDEX.txt
+Help command:        python3 query_quran.py --help
+
+================================================================

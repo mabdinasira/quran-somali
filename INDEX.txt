@@ -1,0 +1,229 @@
+================================================================
+QUR'AN SOMALI - PROJECT INDEX
+================================================================
+
+ALL THREE SOMALI TRANSLATIONS INCLUDED!
+Date Created: November 8, 2025
+Total Surahs: 114 (each translation)
+Total Verses: 6,236 (each translation)
+
+================================================================
+TRANSLATIONS INCLUDED
+================================================================
+
+1. Abdullah Hasan Jacob (Classic)
+   - File: quran_somali_AbdullahHasanJacob.json
+   - Most widely used traditional Somali translation
+   - Default in query script
+
+2. Mahmud Muhammad Abduh (Modern)
+   - File: quran_somali_MahmudMuhammadAbduh.json
+   - Modern Somali translation
+   - Contemporary language style
+
+3. Shaykh Mahmood Muhammad Abdu (Contemporary)
+   - File: quran_somali_ShaykhMahmoodMuhammadAbdu.json
+   - Contemporary Somali translation
+   - Alternative modern approach
+
+================================================================
+DATA FILES (JSON)
+================================================================
+
+quran_somali_AbdullahHasanJacob.json (2.7 MB)
+  → Abdullah Hasan Jacob (Classic) translation
+  → Complete with Arabic text and Somali translation
+  → All 114 surahs, all 6,236 verses
+
+quran_somali_MahmudMuhammadAbduh.json (2.6 MB)
+  → Mahmud Muhammad Abduh (Modern) translation
+  → Complete with Arabic text and Somali translation
+  → All 114 surahs, all 6,236 verses
+
+quran_somali_ShaykhMahmoodMuhammadAbdu.json (2.6 MB)
+  → Shaykh Mahmood Muhammad Abdu (Contemporary) translation
+  → Complete with Arabic text and Somali translation
+  → All 114 surahs, all 6,236 verses
+
+================================================================
+MAIN SCRIPT
+================================================================
+
+query_quran.py
+  → Query tool supporting ALL THREE translations
+  → Extract surahs, verses, or ranges
+  → Switch between translations with -t flag
+
+Usage:
+  python3 query_quran.py 1              # Classic translation (default)
+  python3 query_quran.py 1 -t abduh     # Modern translation
+  python3 query_quran.py 1 -t abdu      # Contemporary translation
+  python3 query_quran.py 2:255          # Get Ayat Al-Kursi
+  python3 query_quran.py 18:1-10        # Get verse range
+  python3 query_quran.py "1:1,2:255"    # Multiple verses
+
+================================================================
+UTILITY SCRIPTS
+================================================================
+
+fetch_all_translations.py
+  → Downloads all three Somali translations from API
+  → Creates labeled JSON files
+  → Can be re-run to get fresh data
+
+fetch_quran.py
+  → Original script for single translation
+  → Can fetch any available translation
+
+check_editions.py
+  → Utility to check available translations in API
+
+================================================================
+DOCUMENTATION FILES
+================================================================
+
+START HERE:
+-----------
+QUICK_START.txt
+  → Quick reference with most common commands
+  → Copy-paste ready examples
+  → Translation switching guide
+  → Best for beginners
+
+COMPLETE GUIDE:
+---------------
+QUERY_GUIDE.txt
+  → Full documentation for query_quran.py
+  → All features and options explained
+  → Use cases and examples
+  → Programming integration examples
+  → Translation comparison guide
+
+REFERENCE:
+----------
+README.txt
+  → General information about the dataset
+  → JSON structure explanation
+  → Data source information
+  → Translation details
+
+INDEX.txt (THIS FILE)
+  → Overview of all files in the project
+
+================================================================
+GETTING STARTED
+================================================================
+
+1. NEW USERS: Read QUICK_START.txt
+
+2. To query the Qur'an:
+   cd ~/Desktop/quran_somali
+   python3 query_quran.py 1
+
+3. To use different translation:
+   python3 query_quran.py 1 -t abduh    # Modern
+   python3 query_quran.py 1 -t abdu     # Contemporary
+
+4. For detailed help:
+   Read QUERY_GUIDE.txt
+   Or run: python3 query_quran.py --help
+
+5. Use JSON files directly in your apps:
+   - Files: quran_somali_AbdullahHasanJacob.json, quran_somali_MahmudMuhammadAbduh.json, quran_somali_ShaykhMahmoodMuhammadAbdu.json
+   - Structure: See README.txt
+
+================================================================
+QUICK EXAMPLES
+================================================================
+
+Get Al-Fatihah (default/classic translation):
+  python3 query_quran.py 1
+
+Get Al-Fatihah (modern translation):
+  python3 query_quran.py 1 -t abduh
+
+Get Al-Fatihah (contemporary translation):
+  python3 query_quran.py 1 -t abdu
+
+Get Ayat Al-Kursi:
+  python3 query_quran.py 2:255
+
+Get Yaseen and save to file:
+  python3 query_quran.py 36 -o yaseen.json
+
+Get multiple verses:
+  python3 query_quran.py "1:1,112:1,113:1,114:1"
+
+Compare translations (run three times with different -t flags):
+  python3 query_quran.py 1:1
+  python3 query_quran.py 1:1 -t abduh
+  python3 query_quran.py 1:1 -t abdu
+
+================================================================
+TRANSLATION DETAILS
+================================================================
+
+All translations include:
+  ✓ Complete 114 surahs
+  ✓ All 6,236 verses
+  ✓ Arabic text (simplified Unicode)
+  ✓ Somali translation
+  ✓ Surah names in Arabic
+  ✓ Verse numbering
+
+Differences:
+  - Language style (classical vs modern vs contemporary)
+  - Word choice in Somali
+  - Interpretation approach
+
+Choose based on:
+  - Personal preference
+  - Reading comprehension
+  - Study purpose
+  - Regional dialect familiarity
+
+================================================================
+FILE SIZES
+================================================================
+
+quran_somali_AbdullahHasanJacob.json:  2.7 MB
+quran_somali_MahmudMuhammadAbduh.json:  2.6 MB
+quran_somali_ShaykhMahmoodMuhammadAbdu.json:   2.6 MB
+Total data files:         ~8.0 MB
+
+================================================================
+DATA SOURCE
+================================================================
+
+API: https://github.com/fawazahmed0/quran-api
+License: Public domain / Free to use
+Arabic Text: Simplified Unicode (ara-quransimple)
+
+Somali Translations:
+  - som-abdullahhasanja (Jacob)
+  - som-mahmudmuhammada (Abduh)
+  - som-shaykhmahmoodmu (Abdu)
+
+================================================================
+VERSION INFO
+================================================================
+
+Dataset Version: 2.0 (Now with 3 translations!)
+Created: November 8, 2025
+Script Version: 2.0
+Python Required: 3.6+
+
+Previous version (single translation) backed up as:
+  quran_somali_complete_OLD_BACKUP.json
+
+================================================================
+SUPPORT
+================================================================
+
+For issues or questions:
+  - Check QUERY_GUIDE.txt for detailed documentation
+  - Verify you're in the quran_somali folder
+  - Make sure JSON files exist
+  - Check translation flag (-t jacob/abduh/abdu)
+
+================================================================
